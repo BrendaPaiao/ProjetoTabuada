@@ -5,39 +5,40 @@ const porta = 3000;
 
 const app = express();
 
-function Tabuada(requisicao, resposta){
-    const valor = parseInt(requisicao.query.valor);
+function Tabuada(requisicao, resposta) {
+    const valor = parseInt(requisicao.query.tabuada);
+    const multiplica = parseInt(requisicao.query.multiplica) || 10; // Valor padrão para multiplica
+
     let resultHTML = '';
 
-    if(!isNaN(valor)){
+    if (!isNaN(valor)) {
         resultHTML += '<html><head><title>Tabuada</title></head><body>';
         resultHTML += '<h1>Tabuada</h1>';
-        resultHTML += `<h2>Tabuda completa do ${valor}</h2>`;
+        resultHTML += `<h2>Tabuada completa do ${valor}</h2>`;
 
-        for(let i= 0; i <= 10;i++){
+        for (let i = 0; i <= multiplica; i++) {
             resultHTML += `<p>${valor} x ${i} = ${valor * i}</p>`;
         }
 
         resultHTML += '</body></html>';
 
-        resposta.send(resultHTML); 
-    }
-    else{
-        resposta.write("<html>");
-        resposta.write("<head>");
-        resposta.write("<meta charset='UTF-8'>");
-        resposta.write("</head>");
-        resposta.write("<body>");
-        resposta.write("É necessário informar o número que deseja");
-        resposta.write("Exemplo: http://localhost:3000/tabuada?valor=3");
-        resposta.write("</body>");
-        resposta.write("</html>");
-        resposta.end();
+        resposta.send(resultHTML);
+    } else {
+        resposta.send(`
+        <html>
+            <head><title>Erro</title></head>
+            <body>
+                <h1>Erro: Valor inválido</h1>
+                <p>Por favor, informe um número válido na URL.</p>
+                <p>Exemplo: http://localhost:3000/tabuada?tabuada=3&multiplica=20</p>
+            </body>
+        </html>
+        `);
     }
 }
 
 app.get("/tabuada", Tabuada);
 
 app.listen(porta, host, () => {
-    console.log("Servidor em execução http://" + host + ":" + porta);
+    console.log("Servidor em execução em http://" + host + ":" + porta);
 });
