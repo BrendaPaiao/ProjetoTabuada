@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Primeiro projeto de desenvolvimento de aplicação web com Node/JS",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/BrendaPaiao/ProjetoTabuada/issues"
   },
-  "homepage": "https://github.com/BrendaPaiao/ProjetoTabuada#readme"
+  "homepage": "https://github.com/BrendaPaiao/ProjetoTabuada#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
